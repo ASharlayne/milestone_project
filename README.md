@@ -203,3 +203,22 @@ Home → Projects → Project Detail
 - Simple access to GitHub repositories
 - Professional impression
 - Mobile responsiveness
+
+---
+
+## Accessibility & Visual Design Changes
+- Added a keyboard "Skip to main content" link on every page to improve keyboard navigation.
+- Added an accessible contact form with <label> elements, a <fieldset>/<legend>, required attributes, and ARIA error regions for clear error announcements.
+- Added rel="noopener noreferrer" to external links that open in new tabs to address security/accessibility warnings.
+- Increased contrast for muted text and badges to meet WCAG AA for text/background combinations.
+- Improved focus styles and visible outlines for keyboard users so interactive controls are easy to identify.
+
+Gestalt principles used:
+- Proximity: grouped contact information and the contact form together in the About page to visually associate related items.
+- Similarity: used consistent badge styles and colors for project tags and category badges so items of the same type are perceived as related.
+
+Color palette consistency:
+- The site uses a consistent dark palette across pages (primary background: #0d1117; surface: #161b22) with a single accent color (#58a6ff) and coherent text colors (primary text: #c9d1d9; muted text adjusted to #aab7c2) for consistent visual hierarchy and accessible contrast.
+
+Notes on validation:
+- The contact form includes client-side validation with accessible error messaging announced via aria-live regions; this is a progressive enhancement and does not submit data to a server in this demo site.
