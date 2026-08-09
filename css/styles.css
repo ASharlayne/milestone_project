@@ -398,6 +398,10 @@ color: var(--text); /* use stronger text for badges to meet WCAG AA */
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+.projects-grid > .section-title {
+    grid-column: 1 / -1;
+}
+
 .project-card .category-badge {
     margin-top: 16px;
 }
