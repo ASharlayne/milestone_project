@@ -14,4 +14,9 @@
 
 ## Verification
 
-After the fixes, rerun WAVE on the published site once the updated files are deployed. The skipped-heading alert and the two redundant-link alerts above should no longer appear. WAVE’s remaining structural and feature markers (such as language, navigation, skip link, headings, main, and footer) are positive informational indicators, not errors.
+WAVE was rerun against the deployed pages after publishing commit `077f1f2`.
+
+- **Home page:** 0 errors, 0 contrast errors, and no redundant-link findings.
+- **Projects page:** 0 errors, 0 contrast errors, and no skipped-heading finding.
+
+WAVE’s remaining structural and feature markers (such as language, navigation, skip link, headings, main, and footer) are positive informational indicators, not errors.
