@@ -8,11 +8,16 @@
     --surface: #161b22;
     --surface-strong: #21262d;
     --border: #30363d;
+    --border-control: #6e7681; /* 3:1+ against form backgrounds for non-text contrast */
     --accent: #58a6ff;
     --accent-strong: #79c0ff;
     --text: #c9d1d9;
     --muted: #aab7c2; /* increased contrast for body copy against dark background */
     --success: #3fb950;
+    --success-text: #b5f2a1;
+    --error: #f85149;
+    --error-text: #ffb4a2;
+    --heading-strong: #ffffff;
     --shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
 
     /* spacing scale (multiples of 8px) */
@@ -160,7 +165,7 @@ button {
     border-radius: 999px;
     border: 1px solid transparent;
     background: var(--accent);
-    color: #0d1117;
+    color: var(--bg);
     font-weight: 700;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
@@ -171,7 +176,7 @@ button {
 .project-link:hover,
 .breadcrumb a:hover {
     transform: translateY(-1px);
-    background: #79c0ff;
+    background: var(--accent-strong);
 }
 
 .comparison-grid,
@@ -257,7 +262,7 @@ margin: var(--space-1) 0 0;
     width: 100%;
     min-height: 550px;
     border: none;
-    background: #0d1117;
+    background: var(--bg);
 }
 
 @media (max-width: 900px) {
@@ -317,7 +322,7 @@ margin: var(--space-1) 0 0;
 .skill-category h3,
 .experience-item h3 {
     margin: 0 0 10px;
-    color: #ffffff;
+    color: var(--heading-strong);
 }
 
 .project-card p,
@@ -354,7 +359,7 @@ margin: var(--space-1) 0 0;
     padding: var(--space-1) var(--space-2);
     border-radius: 999px;
     background: rgba(88, 166, 255, 0.12);
-color: var(--text); /* use stronger text for badges to meet WCAG AA */
+    color: var(--text); /* use stronger text for badges to meet WCAG AA */
     font-size: 0.85rem;
 }
 
@@ -394,11 +399,16 @@ color: var(--text); /* use stronger text for badges to meet WCAG AA */
     color: var(--accent);
 }
 
-.projects-grid {
+/* Similarity: featured cards on the home page use the same grid and card
+   treatment as the projects page so equivalent items look equivalent. */
+.projects-grid,
+.featured-projects {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-.projects-grid > .section-title {
+.projects-grid > .section-title,
+.featured-projects > h2,
+.featured-projects > .view-more {
     grid-column: 1 / -1;
 }
 
@@ -439,7 +449,7 @@ color: var(--text); /* use stronger text for badges to meet WCAG AA */
 
 .skill-tag {
     background: rgba(63, 185, 80, 0.14);
-    color: #b5f2a1;
+    color: var(--success-text);
 }
 
 .experience-grid {
@@ -501,7 +511,7 @@ color: var(--text); /* use stronger text for badges to meet WCAG AA */
 .code-snippet pre {
     margin: 0;
     padding: 20px;
-    color: #c9d1d9;
+    color: var(--text);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 0.95rem;
     line-height: 1.65;
@@ -639,7 +649,7 @@ select {
     width: 100%;
     padding: var(--space-2);
     border-radius: var(--radius-sm);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-control);
     background: var(--surface);
     color: var(--text);
     outline: none;
@@ -648,6 +658,105 @@ select {
 input:focus, textarea:focus, select:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 4px rgba(88,166,255,0.08);
+}
+
+[aria-invalid="true"] {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.15);
+}
+
+/* Contact form: proximity groups each label with its own field and message */
+.contact-group {
+    margin-top: var(--space-4);
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.group-title {
+    margin-bottom: var(--space-2);
+    font-size: 1.15rem;
+}
+
+.contact-form fieldset {
+    margin: 0 0 var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.contact-form legend {
+    padding: 0 var(--space-1);
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.field + .field {
+    margin-top: var(--space-3);
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: var(--space-1);
+    font-weight: 600;
+    color: var(--text);
+}
+
+.field-hint {
+    margin: var(--space-1) 0 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.radio-group {
+    display: grid;
+    gap: var(--space-1);
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.radio-option input[type="radio"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--accent);
+}
+
+.radio-option label {
+    margin: 0;
+    font-weight: 400;
+}
+
+.form-error-summary {
+    margin-bottom: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border: 2px solid var(--error);
+    border-radius: var(--radius-sm);
+    background: rgba(248, 81, 73, 0.10);
+}
+
+.form-error-summary h4 {
+    margin: 0 0 var(--space-1);
+    color: var(--error-text);
+}
+
+.form-error-summary ul {
+    margin: 0;
+    color: var(--error-text);
+}
+
+.form-error-summary a {
+    color: var(--error-text);
+    text-decoration: underline;
+}
+
+.form-actions {
+    margin-bottom: var(--space-2);
 }
 
 /* Visible focus styles for keyboard users */
@@ -673,15 +782,20 @@ input:focus, textarea:focus, select:focus {
     height: auto;
     padding: var(--space-2);
     background: var(--accent);
-    color: #0d1117;
+    color: var(--bg);
     border-radius: var(--radius-sm);
 }
 
 /* Form error and status styles */
 .form-error {
-    color: #ffb4a2; /* high visibility error color */
-    margin: 6px 0 12px 0;
+    color: var(--error-text); /* high visibility error color */
+    margin: var(--space-1) 0 0;
     font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.form-error:empty {
+    margin: 0;
 }
 .form-status {
     margin-top: 12px;
@@ -697,6 +811,18 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Small utility classes */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .text-muted { color: var(--muted); }
 .text-center { text-align: center; }
 .mb-1 { margin-bottom: var(--space-1); }
@@ -718,7 +844,8 @@ input:focus, textarea:focus, select:focus {
     }
 
     .comparison-grid,
-    .projects-grid {
+    .projects-grid,
+    .featured-projects {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
@@ -759,6 +886,7 @@ input:focus, textarea:focus, select:focus {
     }
 
     .projects-grid,
+    .featured-projects,
     .related-projects,
     .skills-grid {
         grid-template-columns: 1fr;
@@ -808,7 +936,8 @@ input:focus, textarea:focus, select:focus {
         grid-template-columns: 1fr 360px;
     }
 
-    .projects-grid {
+    .projects-grid,
+    .featured-projects {
         grid-template-columns: repeat(3, minmax(240px, 1fr));
     }
 
