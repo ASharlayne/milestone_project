@@ -660,9 +660,10 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0 0 0 4px rgba(88,166,255,0.08);
 }
 
-[aria-invalid="true"] {
+[aria-invalid="true"],
+[aria-invalid="true"]:focus {
     border-color: var(--error);
-    box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.15);
+    box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.25);
 }
 
 /* Contact form: proximity groups each label with its own field and message */
@@ -761,7 +762,7 @@ input:focus, textarea:focus, select:focus {
 
 /* Visible focus styles for keyboard users */
 :focus-visible {
-    outline: 3px solid rgba(88,166,255,0.18);
+    outline: 3px solid var(--accent-strong);
     outline-offset: 2px;
 }
 

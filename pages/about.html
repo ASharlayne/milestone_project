@@ -161,18 +161,18 @@
                     </fieldset>
 
                     <fieldset aria-describedby="error-reason">
-                        <legend>Reason for contact <span aria-hidden="true">*</span></legend>
+                        <legend>Reason for contact <span aria-hidden="true">*</span><span class="visually-hidden">required</span></legend>
                         <div class="radio-group">
                             <div class="radio-option">
-                                <input type="radio" id="reason-work" name="reason" value="work" />
+                                <input type="radio" id="reason-work" name="reason" value="work" required aria-required="true" aria-describedby="error-reason" />
                                 <label for="reason-work">Work opportunity</label>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" id="reason-project" name="reason" value="project" />
+                                <input type="radio" id="reason-project" name="reason" value="project" required aria-required="true" aria-describedby="error-reason" />
                                 <label for="reason-project">Question about a project</label>
                             </div>
                             <div class="radio-option">
-                                <input type="radio" id="reason-other" name="reason" value="other" />
+                                <input type="radio" id="reason-other" name="reason" value="other" required aria-required="true" aria-describedby="error-reason" />
                                 <label for="reason-other">Something else</label>
                             </div>
                         </div>
