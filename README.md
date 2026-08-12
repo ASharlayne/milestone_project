@@ -208,7 +208,7 @@ Home → Projects → Project Detail
 
 ## Accessibility
 
-WAVE (wave.webaim.org) was run against the published site for all three pages — Home (`index.html`), Projects (`pages/projects.html`), and About & Contact (`pages/about.html`). All three report **0 errors, 0 contrast errors, and 0 alerts**. The pages were also checked with axe-core, including the contact form in its error state, with 0 violations. See `WAVE_ACCESSIBILITY_REPORT.md` for the run-by-run detail.
+WAVE (wave.webaim.org) was run against the published site for all three pages — Home (`index.html`), Projects (`pages/projects.html`), and About & Contact (`pages/about.html`). All three report **0 errors, 0 contrast errors, and 0 alerts**, with an AIM score of 10/10 each. The pages were also checked with axe-core — including the contact form in its error state and after a successful submission — with 0 violations, and the form was exercised keyboard-only. See `WAVE_ACCESSIBILITY_REPORT.md` for the run-by-run detail.
 
 ### Issues WAVE reported, and how each was fixed (one sentence per fix)
 - **Skipped heading level (Projects):** Added the `h2` "Project collection" between the page `h1` and the project-card `h3` headings so the heading outline no longer jumps a level.
@@ -220,11 +220,13 @@ WAVE (wave.webaim.org) was run against the published site for all three pages �
 - **Skip navigation:** Added a "Skip to main content" link and a matching `id="main"` target on every page so keyboard users can bypass the header.
 - **Form labels (About):** Every field in the contact form has an explicit `<label for="...">`, so no input relies on placeholder text alone.
 - **Radio group semantics (About):** The "Reason for contact" radios are wrapped in a `<fieldset>` with a `<legend>` so their shared question is announced with each option.
+- **Radio group requirement (About):** Each reason radio carries `required`/`aria-required="true"` and the legend carries visually hidden "required" text, so screen-reader users learn the question is mandatory before submitting rather than from the error.
 - **Form instructions (About):** Added a form-level instruction paragraph referenced with `aria-describedby`, plus an `aria-describedby` hint on the email field.
 - **Announced error states (About):** Validation errors are written into per-field `aria-live="polite"` regions, mark the field `aria-invalid="true"`, and are summarised in a `role="alert"` error summary that receives focus and links to each failing field.
 - **Insecure external links:** Added `rel="noopener noreferrer"` to every link that opens in a new tab.
 - **Form-control borders:** Form controls use `--border-control: #6e7681` (3.8:1 against the field background) to satisfy WCAG 1.4.11 non-text contrast.
-- **Visible keyboard focus:** Added `:focus-visible` outlines and accent focus rings on inputs, buttons, and the skip link so the focused control is always obvious.
+- **Visible keyboard focus:** Added a solid `:focus-visible` outline and accent focus rings on inputs, buttons, and the skip link so the focused control is always obvious.
+- **Error styling under focus:** A focused invalid field keeps its red border instead of reverting to the accent focus border, so the error stays visible while it is being corrected.
 
 ### Contrast (WCAG AA)
 Every text/background pair used on the site was checked with the WebAIM Contrast Checker; the lowest ratio in use is 5.8:1, well above the 4.5:1 AA requirement for normal text.
