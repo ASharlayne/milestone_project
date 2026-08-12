@@ -206,19 +206,72 @@ Home → Projects → Project Detail
 
 ---
 
-## Accessibility & Visual Design Changes
-- Added a keyboard "Skip to main content" link on every page to improve keyboard navigation.
-- Added an accessible contact form with <label> elements, a <fieldset>/<legend>, required attributes, and ARIA error regions for clear error announcements.
-- Added rel="noopener noreferrer" to external links that open in new tabs to address security/accessibility warnings.
-- Increased contrast for muted text and badges to meet WCAG AA for text/background combinations.
-- Improved focus styles and visible outlines for keyboard users so interactive controls are easy to identify.
+## Accessibility
 
-Gestalt principles used:
-- Proximity: grouped contact information and the contact form together in the About page to visually associate related items.
-- Similarity: used consistent badge styles and colors for project tags and category badges so items of the same type are perceived as related.
+WAVE (wave.webaim.org) was run against the published site for all three pages — Home (`index.html`), Projects (`pages/projects.html`), and About & Contact (`pages/about.html`). All three report **0 errors, 0 contrast errors, and 0 alerts**. The pages were also checked with axe-core, including the contact form in its error state, with 0 violations. See `WAVE_ACCESSIBILITY_REPORT.md` for the run-by-run detail.
 
-Color palette consistency:
-- The site uses a consistent dark palette across pages (primary background: #0d1117; surface: #161b22) with a single accent color (#58a6ff) and coherent text colors (primary text: #c9d1d9; muted text adjusted to #aab7c2) for consistent visual hierarchy and accessible contrast.
+### Issues WAVE reported, and how each was fixed (one sentence per fix)
+- **Skipped heading level (Projects):** Added the `h2` "Project collection" between the page `h1` and the project-card `h3` headings so the heading outline no longer jumps a level.
+- **Redundant link — Web Framework (Home):** Gave that card's "View Details" link its own destination (`?project=react-ui`) so it no longer duplicates another link's target.
+- **Redundant link — Development Tool (Home):** Gave that card's "View Details" link its own destination (`?project=deploy-assistant`), and the CLI Tool card its own `?project=build-optimizer`, so each link is distinguishable in a screen-reader links list.
 
-Notes on validation:
-- The contact form includes client-side validation with accessible error messaging announced via aria-live regions; this is a progressive enhancement and does not submit data to a server in this demo site.
+### Additional accessibility improvements (verified with WAVE and axe-core)
+- **Low-contrast text:** Raised muted body text from `#8b949e` to `#aab7c2` and badge text to `#c9d1d9` so every text/background pair clears WCAG AA rather than sitting near the threshold.
+- **Skip navigation:** Added a "Skip to main content" link and a matching `id="main"` target on every page so keyboard users can bypass the header.
+- **Form labels (About):** Every field in the contact form has an explicit `<label for="...">`, so no input relies on placeholder text alone.
+- **Radio group semantics (About):** The "Reason for contact" radios are wrapped in a `<fieldset>` with a `<legend>` so their shared question is announced with each option.
+- **Form instructions (About):** Added a form-level instruction paragraph referenced with `aria-describedby`, plus an `aria-describedby` hint on the email field.
+- **Announced error states (About):** Validation errors are written into per-field `aria-live="polite"` regions, mark the field `aria-invalid="true"`, and are summarised in a `role="alert"` error summary that receives focus and links to each failing field.
+- **Insecure external links:** Added `rel="noopener noreferrer"` to every link that opens in a new tab.
+- **Form-control borders:** Form controls use `--border-control: #6e7681` (3.8:1 against the field background) to satisfy WCAG 1.4.11 non-text contrast.
+- **Visible keyboard focus:** Added `:focus-visible` outlines and accent focus rings on inputs, buttons, and the skip link so the focused control is always obvious.
+
+### Contrast (WCAG AA)
+Every text/background pair used on the site was checked with the WebAIM Contrast Checker; the lowest ratio in use is 5.8:1, well above the 4.5:1 AA requirement for normal text.
+
+| Text | Background | Ratio |
+| --- | --- | --- |
+| Body text `#c9d1d9` | page `#0d1117` | 12.3:1 |
+| Muted text `#aab7c2` | page `#0d1117` | 9.3:1 |
+| Muted text `#aab7c2` | card surface | 8.7:1 |
+| Accent link `#58a6ff` | page `#0d1117` | 7.5:1 |
+| Button text `#0d1117` | accent `#58a6ff` | 7.5:1 |
+| Card heading `#ffffff` | card surface | 17.8:1 |
+| Tag / badge text `#c9d1d9` | tinted badge | 9.4:1 |
+| Skill tag `#b5f2a1` | tinted green badge | 11.0:1 |
+| Error text `#ffb4a2` | error summary background | 9.4:1 |
+| Active filter `#58a6ff` | tinted accent background | 5.8:1 |
+
+## Visual Design
+
+### Gestalt principles used
+- **Proximity:** I used proximity to group the contact block on the About page — the contact details and the contact form each sit in their own bordered `.contact-group` with tight internal spacing (8–16px between a label, its field, and its error message) and a larger 32px gap between groups, so each label/field/error reads as one unit rather than a flat list of controls.
+- **Similarity:** I used similarity so that equivalent items look equivalent — every project card (home page and Projects page) shares the same radius, border, padding, and grid, and every tag, category badge, and status badge shares one pill shape and one tinted-accent treatment, so a reader recognises "this is a project" or "this is a tech tag" without reading the text.
+- **Common region (supporting):** Each `<fieldset>` draws a visible boundary around a set of related questions ("Your details", "Reason for contact", "Your message"), reinforcing the same grouping that the markup communicates to assistive technology.
+
+### Color palette (consistent on all pages)
+All pages load the same `css/styles.css` and use the same custom properties, so no page introduces a one-off colour:
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `--bg` | `#0d1117` | page background |
+| `--surface` | `#161b22` | hero, panels, form fields |
+| `--border` | `#30363d` | decorative borders |
+| `--border-control` | `#6e7681` | form-control borders |
+| `--accent` | `#58a6ff` | links, buttons, brand |
+| `--accent-strong` | `#79c0ff` | hover state, status text |
+| `--text` | `#c9d1d9` | body text, badge text |
+| `--muted` | `#aab7c2` | secondary text |
+| `--success` / `--success-text` | `#3fb950` / `#b5f2a1` | skill tags, status badges |
+| `--error` / `--error-text` | `#f85149` / `#ffb4a2` | invalid fields, error messages |
+
+## Accessible Contact Form
+The About & Contact page includes a contact form with:
+- an explicit `<label for="...">` for every input, textarea, and radio;
+- three `<fieldset>`/`<legend>` groups ("Your details", "Reason for contact", "Your message"), which is what makes the radio group's shared question available to screen readers;
+- required fields marked visually with `*` and programmatically with `required` / `aria-required="true"`, with the asterisk explained in the form instructions;
+- `autocomplete="name"` and `autocomplete="email"` so browsers can fill known values;
+- accessible error states: on submit, each invalid field gets `aria-invalid="true"`, a red border, and a message in its own `aria-live="polite"` region referenced by `aria-describedby`, and a `role="alert"` summary at the top of the form lists every error and moves focus to the field when an item is activated;
+- an `aria-live` status message confirming a successful submission.
+
+Validation is client-side only — this is a static demo site, so the form does not post to a server.

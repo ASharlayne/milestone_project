@@ -29,47 +29,106 @@ const initProjectFilters = () => {
     });
 };
 
+const initContactForm = () => {
+    const form = document.getElementById('contact-form');
+    if (!form) {
+        return;
+    }
+
+    const name = document.getElementById('contact-name');
+    const email = document.getElementById('contact-email');
+    const message = document.getElementById('contact-message');
+    const reasons = Array.from(form.querySelectorAll('input[name="reason"]'));
+    const status = document.getElementById('form-status');
+    const summary = document.getElementById('form-error-summary');
+    const summaryList = document.getElementById('form-error-summary-list');
+
+    const setError = (field, errorId, msg) => {
+        const errorEl = document.getElementById(errorId);
+        if (errorEl) {
+            errorEl.textContent = msg;
+        }
+        if (field) {
+            field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+        }
+    };
+
+    const collectErrors = () => {
+        const errors = [];
+
+        if (!name.value.trim()) {
+            errors.push({ field: name, errorId: 'error-name', msg: 'Enter your full name.' });
+            setError(name, 'error-name', 'Enter your full name.');
+        } else {
+            setError(name, 'error-name', '');
+        }
+
+        if (!email.value.trim()) {
+            errors.push({ field: email, errorId: 'error-email', msg: 'Enter your email address.' });
+            setError(email, 'error-email', 'Enter your email address.');
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+            errors.push({ field: email, errorId: 'error-email', msg: 'Enter an email address in the format name@example.com.' });
+            setError(email, 'error-email', 'Enter an email address in the format name@example.com.');
+        } else {
+            setError(email, 'error-email', '');
+        }
+
+        if (reasons.length && !reasons.some((radio) => radio.checked)) {
+            errors.push({ field: reasons[0], errorId: 'error-reason', msg: 'Choose a reason for contact.' });
+            setError(null, 'error-reason', 'Choose a reason for contact.');
+            reasons.forEach((radio) => radio.setAttribute('aria-invalid', 'true'));
+        } else {
+            setError(null, 'error-reason', '');
+            reasons.forEach((radio) => radio.removeAttribute('aria-invalid'));
+        }
+
+        if (!message.value.trim()) {
+            errors.push({ field: message, errorId: 'error-message', msg: 'Enter a message.' });
+            setError(message, 'error-message', 'Enter a message.');
+        } else {
+            setError(message, 'error-message', '');
+        }
+
+        return errors;
+    };
+
+    const showSummary = (errors) => {
+        summaryList.innerHTML = '';
+        errors.forEach(({ field, msg }) => {
+            const item = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = '#' + field.id;
+            link.textContent = msg;
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                field.focus();
+            });
+            item.appendChild(link);
+            summaryList.appendChild(item);
+        });
+        summary.hidden = false;
+        summary.focus();
+    };
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        status.textContent = '';
+        const errors = collectErrors();
+
+        if (errors.length) {
+            showSummary(errors);
+            return;
+        }
+
+        summary.hidden = true;
+        summaryList.innerHTML = '';
+        status.textContent = 'Thank you — your message has been sent.';
+        form.reset();
+    });
+};
+
 window.addEventListener('DOMContentLoaded', () => {
     updateActiveNavLink();
     initProjectFilters();
-
-    // Contact form validation and accessible error states
-    const form = document.getElementById('contact-form');
-    if (form) {
-        const name = document.getElementById('contact-name');
-        const email = document.getElementById('contact-email');
-        const message = document.getElementById('contact-message');
-        const status = document.getElementById('form-status');
-
-        const setError = (el, msg) => {
-            const errEl = document.getElementById('error-' + el.id.split('-').pop());
-            if (errEl) errEl.textContent = msg;
-            el.setAttribute('aria-invalid', msg ? 'true' : 'false');
-        };
-
-        const validate = () => {
-            let valid = true;
-            // name
-            if (!name.value.trim()) { setError(name, 'Please enter your name.'); valid = false; } else { setError(name, ''); }
-            // email
-            if (!email.value.trim()) { setError(email, 'Please enter your email.'); valid = false; }
-            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { setError(email, 'Please enter a valid email address.'); valid = false; }
-            else { setError(email, ''); }
-            // message
-            if (!message.value.trim()) { setError(message, 'Please enter a message.'); valid = false; } else { setError(message, ''); }
-            return valid;
-        };
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            status.textContent = '';
-            if (validate()) {
-                // Simulate successful submission
-                status.textContent = 'Message sent — thank you!';
-                form.reset();
-            } else {
-                status.textContent = 'Please correct the errors above and try again.';
-            }
-        });
-    }
+    initContactForm();
 });

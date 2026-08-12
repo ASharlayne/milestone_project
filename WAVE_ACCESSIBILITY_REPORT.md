@@ -1,8 +1,8 @@
 # WAVE Accessibility Report
 
 **Checker:** WAVE Web Accessibility Evaluation Tool (wave.webaim.org)  
-**Reviewed page:** Published Projects page and Home page  
-**Date:** August 8, 2026
+**Reviewed pages:** Published Home, Projects, and About & Contact pages  
+**Dates:** August 8, 2026 (initial audit and fixes); August 12, 2026 (three-page reverification)
 
 ## Findings and fixes
 
@@ -16,7 +16,21 @@
 
 WAVE was rerun against the deployed pages after publishing commit `077f1f2`.
 
-- **Home page:** 0 errors, 0 contrast errors, and no redundant-link findings.
-- **Projects page:** 0 errors, 0 contrast errors, and no skipped-heading finding.
+- **Home page:** 0 errors, 0 contrast errors, 0 alerts — no redundant-link findings.
+- **Projects page:** 0 errors, 0 contrast errors, 0 alerts — no skipped-heading finding.
+- **About & Contact page:** 0 errors, 0 contrast errors, 0 alerts.
 
 WAVE’s remaining structural and feature markers (such as language, navigation, skip link, headings, main, and footer) are positive informational indicators, not errors.
+
+## Contact form audit
+
+The About & Contact page now carries a full contact form, so it was audited separately with axe-core (WCAG 2.1 A/AA rule set) in two states:
+
+- **Initial state:** 0 violations.
+- **Error state** (submitted empty so every field is invalid, the inline messages are populated, and the `role="alert"` summary is shown): 0 violations.
+
+The form was also exercised manually: submitting an empty form reveals the error summary plus an inline message on every required field, and a valid submission announces a confirmation through an `aria-live` status region and clears the form.
+
+## Contrast
+
+All text/background pairs in the palette were calculated against the WCAG relative-luminance formula (the same calculation the WebAIM Contrast Checker uses); the lowest ratio in use is 5.8:1 against the 4.5:1 AA requirement. Form-control borders use `#6e7681` for 3.8:1 non-text contrast (WCAG 1.4.11). The full table is in `README.md`.
