@@ -53,44 +53,72 @@ const initContactForm = () => {
         }
     };
 
-    const collectErrors = () => {
-        const errors = [];
+    const fields = [
+        {
+            field: name,
+            errorId: 'error-name',
+            validate: () => (name.value.trim() ? '' : 'Enter your full name.')
+        },
+        {
+            field: email,
+            errorId: 'error-email',
+            validate: () => {
+                const value = email.value.trim();
+                if (!value) {
+                    return 'Enter your email address.';
+                }
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+                    ? ''
+                    : 'Enter an email address in the format name@example.com.';
+            }
+        },
+        {
+            field: reasons[0],
+            errorId: 'error-reason',
+            controls: reasons,
+            validate: () => (!reasons.length || reasons.some((radio) => radio.checked)
+                ? ''
+                : 'Choose a reason for contact.')
+        },
+        {
+            field: message,
+            errorId: 'error-message',
+            validate: () => (message.value.trim() ? '' : 'Enter a message.')
+        }
+    ];
 
-        if (!name.value.trim()) {
-            errors.push({ field: name, errorId: 'error-name', msg: 'Enter your full name.' });
-            setError(name, 'error-name', 'Enter your full name.');
+    const validateField = ({ field, errorId, controls, validate }) => {
+        const msg = validate();
+
+        if (controls) {
+            setError(null, errorId, msg);
+            controls.forEach((control) => {
+                if (msg) {
+                    control.setAttribute('aria-invalid', 'true');
+                } else {
+                    control.removeAttribute('aria-invalid');
+                }
+            });
         } else {
-            setError(name, 'error-name', '');
+            setError(field, errorId, msg);
         }
 
-        if (!email.value.trim()) {
-            errors.push({ field: email, errorId: 'error-email', msg: 'Enter your email address.' });
-            setError(email, 'error-email', 'Enter your email address.');
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-            errors.push({ field: email, errorId: 'error-email', msg: 'Enter an email address in the format name@example.com.' });
-            setError(email, 'error-email', 'Enter an email address in the format name@example.com.');
-        } else {
-            setError(email, 'error-email', '');
-        }
-
-        if (reasons.length && !reasons.some((radio) => radio.checked)) {
-            errors.push({ field: reasons[0], errorId: 'error-reason', msg: 'Choose a reason for contact.' });
-            setError(null, 'error-reason', 'Choose a reason for contact.');
-            reasons.forEach((radio) => radio.setAttribute('aria-invalid', 'true'));
-        } else {
-            setError(null, 'error-reason', '');
-            reasons.forEach((radio) => radio.removeAttribute('aria-invalid'));
-        }
-
-        if (!message.value.trim()) {
-            errors.push({ field: message, errorId: 'error-message', msg: 'Enter a message.' });
-            setError(message, 'error-message', 'Enter a message.');
-        } else {
-            setError(message, 'error-message', '');
-        }
-
-        return errors;
+        return msg ? { field, errorId, msg } : null;
     };
+
+    const collectErrors = () => fields.map(validateField).filter(Boolean);
+
+    fields.forEach((entry) => {
+        (entry.controls || [entry.field]).filter(Boolean).forEach((control) => {
+            control.addEventListener('blur', () => validateField(entry));
+            control.addEventListener('change', () => validateField(entry));
+            control.addEventListener('input', () => {
+                if (document.getElementById(entry.errorId).textContent) {
+                    validateField(entry);
+                }
+            });
+        });
+    });
 
     const showSummary = (errors) => {
         summaryList.innerHTML = '';
