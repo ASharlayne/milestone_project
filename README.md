@@ -273,7 +273,8 @@ The About & Contact page includes a contact form with:
 - three `<fieldset>`/`<legend>` groups ("Your details", "Reason for contact", "Your message"), which is what makes the radio group's shared question available to screen readers;
 - required fields marked visually with `*` and programmatically with `required` / `aria-required="true"`, with the asterisk explained in the form instructions;
 - `autocomplete="name"` and `autocomplete="email"` so browsers can fill known values;
-- accessible error states: on submit, each invalid field gets `aria-invalid="true"`, a red border, and a message in its own `aria-live="polite"` region referenced by `aria-describedby`, and a `role="alert"` summary at the top of the form lists every error and moves focus to the field when an item is activated;
+- accessible error states: each invalid field gets `aria-invalid="true"`, a red border, and a message in its own `aria-live="polite"` region referenced by `aria-describedby`, and a `role="alert"` summary at the top of the form lists every error and moves focus to the field when an item is activated;
+- live per-field validation: a field is re-checked when it is left (`blur`) or changed, and an existing error message updates or disappears as the field is corrected, instead of only on submit;
 - an `aria-live` status message confirming a successful submission.
 
 Validation is client-side only — this is a static demo site, so the form does not post to a server.
