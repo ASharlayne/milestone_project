@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Mobile menu styles */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        .project-filter {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .filter-btn {
+            margin: 0 5px;
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .filter-btn.active {
+            background: #0056b3;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 0.875em;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .api-data {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .header-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: #333;
+                padding: 10px;
+            }
+            
+            .header-links.active {
+                display: flex;
+            }
+            
+            .header-links a {
+                margin: 5px 0;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="site-wrapper">
+        <!-- Shared Navigation -->
+        <header class="site-header">
+            <nav class="header-nav" aria-label="Primary navigation">
+                <span class="header-brand">Developer Portfolio</span>
+                <button class="mobile-menu-btn" aria-expanded="false" aria-controls="main-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="header-links" id="main-menu">
+                    <a href="index.html">Home</a>
+                    <a href="pages/projects.html">Projects</a>
+                    <a href="pages/about.html">About & Contact</a>
+                    <a href="pages/combined.html">Combined</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Page Content -->
+        <main id="main" class="page">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Welcome to My Portfolio</h1>
+                <p>Full-stack developer building CLI tools, frameworks, and innovative projects.</p>
+                <a href="pages/projects.html" class="cta-button">View My Work</a>
+            </section>
+
+            <!-- Project Filter (DOM Interaction) -->
+            <section class="project-filter">
+                <h2>Filter Projects</h2>
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="javascript">JavaScript</button>
+                <button class="filter-btn" data-filter="go">Go</button>
+            </section>
+
+            <!-- Featured Projects Preview -->
+            <section class="featured-projects">
+                <h2>Featured Projects</h2>
+                
+                <article class="project-card" data-tech="python">
+                    <h3>CLI Tool Project</h3>
+                    <p>A command-line utility designed to streamline development workflows.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">CLI</span>
+                        <span class="tag">Tool</span>
+                    </div>
+                    <a href="pages/project-detail.html?project=build-optimizer" class="view-details">View Details →</a>
+                </article>
+
+                <article class="project-card" data-tech="javascript">
+                    <h3>Web Framework</h3>
+                    <p>A lightweight framework for building modern web applications.</p>
+                    <div class="tech-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Framework</span>
+                        <span class="tag">React</span>
+                    </div>
+                    <a href="pages/project-detail.html?project=react-ui" class="view-details">View Details →</a>
+                </article>
+
+                <article class="project-card" data-tech="go">
+                    <h3>Development Tool</h3>
+                    <p>An automation tool that improves developer productivity and efficiency.</p>
+                    <div class="tech-tags">
+                        <span class="tag">Go</span>
+                        <span class="tag">DevOps</span>
+                        <span class="tag">Tool</span>
+                    </div>
+                    <a href="pages/project-detail.html?project=deploy-assistant" class="view-details">View Details →</a>
+                </article>
+
+                <div class="view-more">
+                    <a href="pages/projects.html" class="view-all">View All Projects →</a>
+                </div>
+            </section>
+
+            <!-- API Data Section -->
+            <section class="api-data">
+                <h2>Developer Quote of the Day</h2>
+                <p id="quote-text">Loading...</p>
+                <p id="quote-author"></p>
+                <button id="new-quote-btn">Get New Quote</button>
+            </section>
+
+            <!-- Contact Form with Validation -->
+            <section>
+                <h2>Contact Me</h2>
+                <form id="contact-form">
+                    <div>
+                        <label for="name">Name (required)</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="error-message" id="name-error">Name is required</div>
+                    </div>
+                    
+                    <div>
+                        <label for="email">Email (required)</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error-message" id="email-error">Valid email is required</div>
+                    </div>
+                    
+                    <div>
+                        <label for="message">Message (required)</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <div class="error-message" id="message-error">Message is required</div>
+                    </div>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+        </main>
+
+        <!-- Footer Element -->
+        <footer class="site-footer">
+            <p>© 2026 My Portfolio Site</p>
+            <div class="footer-links">
+                <a href="https://github.com/ASharlayne" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 1. DOM Interaction - Mobile Menu Toggle
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const menu = document.querySelector('.header-links');
+        
+        menuBtn.addEventListener('click', function() {
+            const isOpen = menu.classList.contains('active');
+            menu.classList.toggle('active');
+            menuBtn.setAttribute('aria-expanded', !isOpen);
+        });
+
+        // 1. DOM Interaction - Project Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-tech') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 2. Form Validation
+        const contactForm = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        
+        // Error elements
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const messageError = document.getElementById('message-error');
+        
+        // Validation functions
+        function validateName() {
+            if (nameInput.value.trim() === '') {
+                nameError.style.display = 'block';
+                return false;
+            } else {
+                nameError.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function validateEmail() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailError.style.display = 'block';
+                return false;
+            } else {
+                emailError.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function validateMessage() {
+            if (messageInput.value.trim() === '') {
+                messageError.style.display = 'block';
+                return false;
+            } else {
+                messageError.style.display = 'none';
+                return true;
+            }
+        }
+        
+        // Real-time validation
+        nameInput.addEventListener('blur', validateName);
+        emailInput.addEventListener('blur', validateEmail);
+        messageInput.addEventListener('blur', validateMessage);
+        
+        // Clear errors when user types
+        nameInput.addEventListener('input', () => {
+            if (nameInput.value.trim() !== '') {
+                nameError.style.display = 'none';
+            }
+        });
+        
+        emailInput.addEventListener('input', () => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(emailInput.value)) {
+                emailError.style.display = 'none';
+            }
+        });
+        
+        messageInput.addEventListener('input', () => {
+            if (messageInput.value.trim() !== '') {
+                messageError.style.display = 'none';
+            }
+        });
+        
+        // Form submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isMessageValid = validateMessage();
+            
+            if (isNameValid && isEmailValid && isMessageValid) {
+                // Form is valid - in a real app you would submit here
+                alert('Form submitted successfully!');
+                contactForm.reset();
+            }
+        });
+
+        // 3. API Fetch - Developer Quotes
+        const quoteText = document.getElementById('quote-text');
+        const quoteAuthor = document.getElementById('quote-author');
+        const newQuoteBtn = document.getElementById('new-quote-btn');
+        
+        async function fetchQuote() {
+            try {
+                quoteText.textContent = 'Loading...';
+                quoteAuthor.textContent = '';
+                
+                const response = await fetch('https://api.quotegarden.io/api/v3/quotes/random?genre=technology');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch quote');
+                }
+                
+                const data = await response.json();
+                const quote = data.data[0];
+                
+                quoteText.textContent = `"${quote.quoteText}"`;
+                quoteAuthor.textContent = `- ${quote.quoteAuthor}`;
+            } catch (error) {
+                quoteText.textContent = 'Failed to load quote. Please try again later.';
+                quoteAuthor.textContent = '';
+                console.error('Error fetching quote:', error);
+            }
+        }
+        
+        // Initial fetch
+        fetchQuote();
+        
+        // Button click event
+        newQuoteBtn.addEventListener('click', fetchQuote);
+    </script>
+</body>
+</html>
