@@ -3,126 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - My Portfolio</title>
+    <title>Portfolio Progression | ASharlayne</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <div class="site-wrapper">
+        <header class="site-header">
+            <nav class="header-nav" aria-label="Primary navigation">
+                <a class="header-brand" href="../index.html">ASharlayne</a>
+                <div class="header-links">
+                    <a href="../index.html">Home</a>
+                    <a href="projects.html">Progress</a>
+                    <a href="about.html">About &amp; Contact</a>
+                </div>
+            </nav>
+        </header>
 
-    <!-- Shared Navigation -->
-    <header class="site-header">
-        <nav class="header-nav" aria-label="Primary navigation">
-            <span class="header-brand">Developer Portfolio</span>
-            <div class="header-links">
-                <a href="../index.html">Home</a>
-                <a href="projects.html">Projects</a>
-                <a href="about.html">About & Contact</a>
-                <a href="combined.html">Combined</a>
+        <main id="main" class="page-main">
+            <h1>How the portfolio grew</h1>
+            <p class="intro">These are not unrelated placeholder projects. They are stages of one portfolio website, with each assignment adding a new layer of design, content, behavior, or accessibility.</p>
+
+            <section class="filters" aria-label="Filter portfolio stages">
+                <button class="filter-btn active" data-filter="all" type="button">All stages</button>
+                <button class="filter-btn" data-filter="foundation" type="button">Foundation</button>
+                <button class="filter-btn" data-filter="interaction" type="button">Interaction</button>
+                <button class="filter-btn" data-filter="accessibility" type="button">Accessibility</button>
+            </section>
+
+            <section class="projects-grid" aria-labelledby="progress-heading">
+                <h2 id="progress-heading" class="section-title">Assignment timeline</h2>
+                <article class="project-card" data-category="foundation" id="assignment-1">
+                    <h3>Assignment 1 — First portfolio page</h3>
+                    <p>The starting point: a single page using semantic HTML and CSS to practice structure, the box model, typography, spacing, and responsive layout.</p>
+                    <div class="tech-tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+                    <a href="https://asharlayne.github.io/homework_1/" class="view-details" target="_blank" rel="noopener noreferrer">View this stage &rarr;</a>
+                </article>
+
+                <article class="project-card" data-category="foundation" id="assignment-2">
+                    <h3>Assignment 2 — Multi-page portfolio</h3>
+                    <p>The page became a site with Home, Projects, and About/Contact views. Navigation, reusable styling, real project content, and a consistent visual system were added.</p>
+                    <div class="tech-tags"><span class="tag">Multi-page HTML</span><span class="tag">CSS</span><span class="tag">GitHub</span></div>
+                    <a href="https://github.com/ASharlayne/homework_2_projects" class="view-details" target="_blank" rel="noopener noreferrer">View the code &rarr;</a>
+                </article>
+
+                <article class="project-card" data-category="interaction" id="assignment-3">
+                    <h3>Assignment 3 — JavaScript interactions</h3>
+                    <p>The portfolio work expanded into interactive pages: event listeners, DOM updates, a cycling trail tip, a live margin meter, and a sightings log built with JavaScript.</p>
+                    <div class="tech-tags"><span class="tag">JavaScript</span><span class="tag">DOM</span><span class="tag">Events</span></div>
+                    <a href="https://asharlayne.github.io/homework7web-dev/" class="view-details" target="_blank" rel="noopener noreferrer">View the interactive stage &rarr;</a>
+                </article>
+
+                <article class="project-card" data-category="interaction" id="assignment-4">
+                    <h3>Assignment 4 — Form validation and API fetch</h3>
+                    <p>A contact-form assignment added client-side validation, inline error messages, keyboard support, and a public API request that fails gracefully.</p>
+                    <div class="tech-tags"><span class="tag">Validation</span><span class="tag">Fetch API</span><span class="tag">ARIA</span></div>
+                    <a href="https://asharlayne.github.io/Homework-8-Form-with-Validation-API-Fetch/" class="view-details" target="_blank" rel="noopener noreferrer">View the form stage &rarr;</a>
+                </article>
+
+                <article class="project-card" data-category="accessibility" id="assignment-5">
+                    <h3>Milestone — Accessibility-focused portfolio</h3>
+                    <p>The final stage brought the portfolio together with responsive behavior, keyboard-accessible interactions, WAVE and axe-core checks, and WCAG AA contrast work.</p>
+                    <div class="tech-tags"><span class="tag">Responsive</span><span class="tag">WCAG AA</span><span class="tag">axe-core</span></div>
+                    <a href="https://asharlayne.github.io/Capstone/" class="view-details" target="_blank" rel="noopener noreferrer">View the final Capstone &rarr;</a>
+                </article>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 ASharlayne. Built assignment by assignment.</p>
+            <div class="footer-links">
+                <a href="https://github.com/ASharlayne" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://asharlayne.github.io/Capstone/" target="_blank" rel="noopener noreferrer">Capstone</a>
             </div>
-        </nav>
-    </header>
-
-    <!-- Page Content -->
-    <main id="main" class="page-main">
-        <h1>My Projects</h1>
-        
-        <!-- Project Filters -->
-        <section class="filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="cli-tools">CLI Tools</button>
-            <button class="filter-btn" data-filter="frameworks">Frameworks</button>
-            <button class="filter-btn" data-filter="other">Other</button>
-        </section>
-
-        <!-- Projects Grid -->
-        <section class="projects-grid" aria-labelledby="project-collection-heading">
-            <h2 id="project-collection-heading" class="section-title">Project collection</h2>
-            
-            <article class="project-card" data-category="cli-tools">
-                <h3>Build Optimizer CLI</h3>
-                <p>A command-line tool for optimizing and analyzing project builds. Provides insights into build performance and bottlenecks.</p>
-                <div class="tech-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">CLI</span>
-                    <span class="tag">Performance</span>
-                </div>
-                <div class="category-badge">CLI Tool</div>
-                <a href="project-detail.html?project=build-optimizer" class="view-details">View Details →</a>
-            </article>
-
-            <article class="project-card" data-category="frameworks">
-                <h3>React UI Framework</h3>
-                <p>A comprehensive component library built on React for rapid UI development. Includes documentation and examples.</p>
-                <div class="tech-tags">
-                    <span class="tag">React</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">Components</span>
-                </div>
-                <div class="category-badge">Framework</div>
-                <a href="project-detail.html?project=react-ui" class="view-details">View Details →</a>
-            </article>
-
-            <article class="project-card" data-category="cli-tools">
-                <h3>Deployment Assistant</h3>
-                <p>CLI tool that automates deployment workflows. Supports multiple cloud providers and custom configurations.</p>
-                <div class="tech-tags">
-                    <span class="tag">Go</span>
-                    <span class="tag">DevOps</span>
-                    <span class="tag">Automation</span>
-                </div>
-                <div class="category-badge">CLI Tool</div>
-                <a href="project-detail.html?project=deploy-assistant" class="view-details">View Details →</a>
-            </article>
-
-            <article class="project-card" data-category="frameworks">
-                <h3>Python Data Framework</h3>
-                <p>Lightweight framework for data processing and analysis pipelines. Built for speed and simplicity.</p>
-                <div class="tech-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Data</span>
-                    <span class="tag">Framework</span>
-                </div>
-                <div class="category-badge">Framework</div>
-                <a href="project-detail.html?project=data-framework" class="view-details">View Details →</a>
-            </article>
-
-            <article class="project-card" data-category="other">
-                <h3>Real-time Chat Application</h3>
-                <p>Full-stack web application with real-time messaging using WebSockets. Includes user authentication and rooms.</p>
-                <div class="tech-tags">
-                    <span class="tag">Node.js</span>
-                    <span class="tag">WebSocket</span>
-                    <span class="tag">Database</span>
-                </div>
-                <div class="category-badge">Other</div>
-                <a href="project-detail.html?project=chat-app" class="view-details">View Details →</a>
-            </article>
-
-            <article class="project-card" data-category="cli-tools">
-                <h3>Code Analyzer Tool</h3>
-                <p>Analyzes codebases to identify patterns, complexity metrics, and potential improvements.</p>
-                <div class="tech-tags">
-                    <span class="tag">Rust</span>
-                    <span class="tag">CLI</span>
-                    <span class="tag">Analysis</span>
-                </div>
-                <div class="category-badge">CLI Tool</div>
-                <a href="project-detail.html?project=code-analyzer" class="view-details">View Details →</a>
-            </article>
-
-        </section>
-    </main>
-
-    <!-- Footer Element -->
-    <footer class="site-footer">
-        <p>&copy; 2026 My Portfolio Site</p>
-        <div class="footer-links">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
-        </div>
-    </footer>
+        </footer>
     </div>
     <script src="../scripts.js"></script>
 </body>

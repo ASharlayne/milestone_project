@@ -3,86 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Portfolio</title>
+    <title>ASharlayne | Portfolio Progression</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <div class="site-wrapper">
-        <!-- Shared Navigation -->
         <header class="site-header">
             <nav class="header-nav" aria-label="Primary navigation">
-                <span class="header-brand">Developer Portfolio</span>
+                <a class="header-brand" href="index.html">ASharlayne</a>
                 <div class="header-links">
                     <a href="index.html">Home</a>
-                    <a href="pages/projects.html">Projects</a>
-                    <a href="pages/about.html">About & Contact</a>
-                    <a href="pages/combined.html">Combined</a>
+                    <a href="pages/projects.html">Progress</a>
+                    <a href="pages/about.html">About &amp; Contact</a>
                 </div>
             </nav>
         </header>
 
-    <!-- Page Content -->
-    <main id="main" class="page">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Welcome to My Portfolio</h1>
-            <p>Full-stack developer building CLI tools, frameworks, and innovative projects.</p>
-            <a href="pages/projects.html" class="cta-button">View My Work</a>
-        </section>
+        <main id="main" class="page">
+            <section class="hero">
+                <h1>One portfolio, built assignment by assignment.</h1>
+                <p>I'm a web development student building accessible, responsive websites with HTML, CSS, and JavaScript. This Milestone site shows how the same portfolio grew as each assignment added a new skill.</p>
+                <a href="pages/projects.html" class="cta-button">See the progression</a>
+            </section>
 
-        <!-- Featured Projects Preview -->
-        <section class="featured-projects">
-            <h2>Featured Projects</h2>
-            
-            <article class="project-card">
-                <h3>CLI Tool Project</h3>
-                <p>A command-line utility designed to streamline development workflows.</p>
-                <div class="tech-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">CLI</span>
-                    <span class="tag">Tool</span>
+            <section class="featured-projects" aria-labelledby="featured-heading">
+                <h2 id="featured-heading">The portfolio at a glance</h2>
+                <article class="project-card">
+                    <h3>From first page to accessible portfolio</h3>
+                    <p>The work started as a basic HTML and CSS page, became a multi-page site, gained JavaScript interactions and form validation, and finished as an accessibility-audited portfolio.</p>
+                    <div class="tech-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">WCAG AA</span>
+                    </div>
+                    <a href="pages/project-detail.html" class="view-details">Read the full story &rarr;</a>
+                </article>
+                <div class="view-more">
+                    <a href="https://asharlayne.github.io/Capstone/" class="view-all" target="_blank" rel="noopener noreferrer">View the final Capstone portfolio &rarr;</a>
                 </div>
-                <a href="pages/project-detail.html?project=build-optimizer" class="view-details">View Details →</a>
-            </article>
+            </section>
+        </main>
 
-            <article class="project-card">
-                <h3>Web Framework</h3>
-                <p>A lightweight framework for building modern web applications.</p>
-                <div class="tech-tags">
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">Framework</span>
-                    <span class="tag">React</span>
-                </div>
-                <a href="pages/project-detail.html?project=react-ui" class="view-details">View Details →</a>
-            </article>
-
-            <article class="project-card">
-                <h3>Development Tool</h3>
-                <p>An automation tool that improves developer productivity and efficiency.</p>
-                <div class="tech-tags">
-                    <span class="tag">Go</span>
-                    <span class="tag">DevOps</span>
-                    <span class="tag">Tool</span>
-                </div>
-                <a href="pages/project-detail.html?project=deploy-assistant" class="view-details">View Details →</a>
-            </article>
-
-            <div class="view-more">
-                <a href="pages/projects.html" class="view-all">View All Projects →</a>
+        <footer class="site-footer">
+            <p>&copy; 2026 ASharlayne. Built assignment by assignment.</p>
+            <div class="footer-links">
+                <a href="https://github.com/ASharlayne" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/a-sharlayne-6aa98925b" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://asharlayne.github.io/Capstone/" target="_blank" rel="noopener noreferrer">Capstone</a>
             </div>
-        </section>
-    </main>
-
-    <!-- Footer Element -->
-    <footer class="site-footer">
-        <p>&copy; 2026 My Portfolio Site</p>
-        <div class="footer-links">
-            <a href="https://github.com/ASharlayne" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
-        </div>
-    </footer>
+        </footer>
     </div>
     <script src="scripts.js"></script>
 </body>
